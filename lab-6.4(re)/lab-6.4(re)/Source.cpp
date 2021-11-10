@@ -81,16 +81,24 @@ int Dobutok(int* a, const int size, int i, int d)
 		return d;
 }
 
+void FindMaxIndex(int* a, const int size, int& max, int& i_max, int i)
+{
+	if (i < size)
+	{
+		if (max < a[i])
+		{
+			max = a[i];
+			i_max = i;
+		}
+		FindMaxIndex(a, size, max, i_max, i + 1);
+	}
+}
+
 int Sort(int* a, const int size, int i)
 {
 	int max = a[i];
 	int imax = i;
-	for (int j = i + 1; j < size; j++)
-		if (max < a[j])
-		{
-			max = a[j];
-			imax = j;
-		}
+	FindMaxIndex(a, size, max, imax, i + 1);
 	a[imax] = a[i];
 	a[i] = max;
 
